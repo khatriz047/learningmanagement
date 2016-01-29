@@ -7,7 +7,7 @@
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
-		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<!-- <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" 
 			/> -->
 		<form-login login-page="/login" username-parameter="username"
