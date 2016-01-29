@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="admin" template="/WEB-INF/views/jsp/layouts/admin.jsp">
+		<put-attribute name="title" value="Admin page" />
+		<put-attribute name="header" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/header.jsp" />
+		<put-attribute name="navigation" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/navigation.jsp" />
+		<put-attribute name="leftmenu" type="template"
+			value="/WEB-INF/views/jsp/templates/leftmenu.jsp" />
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/container.jsp" />
+		<put-attribute name="footer" type="template"
+			value="/WEB-INF/views/jsp/templates/footer.jsp" />
+	</definition>
+	<!-- School Page -->
+	<definition name="school" extends="admin">
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/school.jsp" />
+	</definition>
+	
+	<!-- Role Page -->
+	<definition name="role" extends="admin">
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/role.jsp" />
+	</definition>
+	
+	<!-- User Page -->
+	<definition name="user" extends="admin">
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/user.jsp" />
+	</definition>
+	
+	<!-- Profile Page -->
+	<definition name="profile" extends="admin">
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/admin/profile.jsp" />
+	</definition>
+</tiles-definitions>
