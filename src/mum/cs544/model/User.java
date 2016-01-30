@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name = "user")
 @SecondaryTables(@SecondaryTable(name = "profile", pkJoinColumns = {
@@ -37,10 +39,12 @@ public class User {
 	@Column(table = "profile")
 	private String prefix;
 	@Column(table = "profile")
+	@NotEmpty
 	private String firstname;
 	@Column(table = "profile")
 	private String lastname;
 	@Column(table = "profile")
+	@Email
 	private String email;
 	@Column(table = "profile")
 	private String usernumber;
@@ -58,6 +62,8 @@ public class User {
 	private String state;
 	@Column(table = "profile")
 	private String zip;
+	@Column(table = "profile")
+	private String address;
 	@Column(table = "profile")
 	private String country;
 	@Column(table = "profile")
@@ -246,6 +252,14 @@ public class User {
 
 	public void setResetRequest(boolean resetRequest) {
 		this.resetRequest = resetRequest;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

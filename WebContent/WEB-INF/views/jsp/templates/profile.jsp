@@ -17,13 +17,22 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane fade active in" id="myprofileTable">
+
+		<div class="tab-pane fade active in" id="myprofile">
 			<div class="panel panel-default">
-				<table class="row" id="myprofile">
-					<tr class="form-group">
+				<table class="table table-striped" id="myprofileTable">
+
+					<tr>
 						<td class="col-md-2 control-label">Photo</td>
-						<td><img src="../resources/no_image.jpg"
-							class="img-thumbnail" alt="Cinque Terre" width="120"></td>
+						<td><img src="resources/no_image.jpg" class="img-thumbnail"
+							alt="Cinque Terre" width="120"></td>
+					</tr>
+					<c:if test="${not empty error}">
+					
+					</c:if>
+					<tr>
+						<td class="col-md-2 control-label">Your Identification Number</td>
+						<td><span class="label label-default">${user.usernumber}</span></td>
 					</tr>
 					<tr>
 						<td class="col-md-2 control-label">Name</td>
@@ -33,6 +42,80 @@
 					<tr>
 						<td class="col-md-2 control-label">Email</td>
 						<td><span class="label label-default">${user.email}</span></td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">Contact Number</td>
+						<td><span class="label label-default">${user.contactNumber}</span></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 control-label">Home Country</td>
+						<td>
+							<div class="bfh-selectbox bfh-countries"
+								data-country="${user.homeCountry}" data-flags="true">
+								<input type="hidden" value="${user.homeCountry}"> <a
+									class="bfh-selectbox-toggle" role="button"
+									data-toggle="bfh-selectbox" href="#"> <span
+									class="bfh-selectbox-option input-medium" data-option=""></span>
+									<b class="caret"></b>
+								</a>
+								<div class="bfh-selectbox-options">
+									<input type="text" class="bfh-selectbox-filter" name="country"
+										disabled="disabled">
+									<div role="listbox">
+										<ul role="option">
+										</ul>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">Country</td>
+						<td>
+							<div class="bfh-selectbox bfh-countries"
+								data-country="${user.country}" data-flags="true">
+								<input type="hidden" value="${user.country}"> <a
+									class="bfh-selectbox-toggle" role="button"
+									data-toggle="bfh-selectbox" href="#"> <span
+									class="bfh-selectbox-option input-medium" data-option=""></span>
+									<b class="caret"></b>
+								</a>
+								<div class="bfh-selectbox-options">
+									<input type="text" class="bfh-selectbox-filter" name="country"
+										disabled>
+									<div role="listbox">
+										<ul role="option">
+										</ul>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">City</td>
+						<td><span class="label label-default">${user.city}</span></td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">State</td>
+						<td><span class="label label-default">${user.state}</span></td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">Zip</td>
+						<td><span class="label label-default">${user.zip}</span></td>
+					</tr>
+					<tr>
+						<td class="col-md-2 control-label">Address</td>
+						<td><span class="label label-default">${user.address}</span></td>
+					</tr>
+
+					<tr>
+						<td class="col-md-2 control-label">Enrolled Date</td>
+						<td><span class="label label-default">${user.enrolledDate}</span></td>
 					</tr>
 				</table>
 			</div>
@@ -50,7 +133,7 @@
 
 							<div class="panel-body">
 								<form:form class="form-horizontal row-border" action="profile"
-									method="post" commandName="user">
+									method="post" modelAttribute="user">
 
 									<form:hidden path="id" value="${user.id}" />
 
@@ -64,6 +147,7 @@
 
 											</form:select>
 											<form:input path="firstname" class="form-control" />
+											<form:errors path="firstname" cssClass="error" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -76,6 +160,7 @@
 										<label class="col-md-2 control-label">Email</label>
 										<div class="col-md-10">
 											<form:input path="email" class="form-control" />
+											<form:errors path="firstname" cssClass="error" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -131,6 +216,13 @@
 										<label class="col-md-2 control-label">Zip</label>
 										<div class="col-md-10">
 											<form:input path="zip" class="form-control" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">Address</label>
+										<div class="col-md-10">
+											<form:input path="address" class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">

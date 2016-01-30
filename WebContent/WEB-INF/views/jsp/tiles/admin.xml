@@ -37,6 +37,6 @@
 	<!-- Profile Page -->
 	<definition name="profile" extends="admin">
 		<put-attribute name="content" type="template"
-			value="/WEB-INF/views/jsp/templates/admin/profile.jsp" />
+			value="/WEB-INF/views/jsp/templates/profile.jsp" />
 	</definition>
 </tiles-definitions>

@@ -11,7 +11,7 @@
                         <li><a href="#">link2</a></li>
                     </ul> --></li>
 
-			<li class="active"><a href="${pageContext.request.contextPath}/admin/profile"><span
+			<li class="active"><a href="${pageContext.request.contextPath}/profile"><span
 					class="fa-stack fa-lg pull-left"><i
 						class="fa fa-user fa-stack-1x "></i></span>Profile</a></li>
 			<security:authorize access="hasRole('ADMIN')">

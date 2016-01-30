@@ -1,23 +1,19 @@
 package mum.cs544.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mum.cs544.model.User;
 import mum.cs544.service.UserService;
@@ -31,17 +27,35 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String redirectRoot() {
-		System.out.println("haitt....");
 		return "login";
 	}
 
-/*	@RequestMapping(value = "/hello/", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> listAllUsers() {
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String userProfilePage(Model model, HttpSession session) {
+		model.addAttribute("user", userService.findByUsername((String) session.getAttribute("username")));
+		return "profile";
+	}
 
-		List<User> users = userService.findByUsername(username)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String updateUserProfile(@Valid User user, BindingResult results, RedirectAttributes redirectAttrs) {
+		if (!results.hasErrors()) {
+			userService.updateUserProfile(user);
+			return "redirect:/profile";
+		} else {
+			redirectAttrs.addFlashAttribute("error","error");
+			return "profile";
+		}
 
-		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-	}*/
+	}
+
+	/*
+	 * @RequestMapping(value = "/hello/", method = RequestMethod.GET) public
+	 * ResponseEntity<List<User>> listAllUsers() {
+	 * 
+	 * List<User> users = userService.findByUsername(username)
+	 * 
+	 * return new ResponseEntity<List<User>>(users, HttpStatus.OK); }
+	 */
 
 	@RequestMapping(value = "/db", method = RequestMethod.GET)
 	public String dbaPage(ModelMap model) {
@@ -54,8 +68,6 @@ public class MainController {
 		model.addAttribute("user", getPrincipal());
 		return "accessDenied";
 	}
-
-	
 
 	private String getPrincipal() {
 		String userName = null;
