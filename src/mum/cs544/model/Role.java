@@ -12,6 +12,7 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
+	private String description;
 
 	public Role() {
 
@@ -35,6 +36,14 @@ public class Role {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

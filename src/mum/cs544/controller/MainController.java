@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import mum.cs544.dto.ChangePasswordDTO;
 import mum.cs544.model.User;
 import mum.cs544.service.UserService;
 
@@ -33,20 +34,26 @@ public class MainController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String userProfilePage(Model model, HttpSession session) {
 		model.addAttribute("user", userService.findByUsername((String) session.getAttribute("username")));
+		model.addAttribute("changePasswordDTO", new ChangePasswordDTO());
+
 		return "profile";
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String updateUserProfile(@Valid User user, BindingResult results, RedirectAttributes redirectAttrs) {
+	// public String updateUserProfile(@Valid User user, BindingResult results,
+	// RedirectAttributes redirectAttrs) {
+	public String updateUserProfile(@Valid User user, BindingResult results) {
 		if (!results.hasErrors()) {
 			userService.updateUserProfile(user);
+			user.setError(false);
 			return "redirect:/profile";
 		} else {
-			redirectAttrs.addFlashAttribute("error","error");
+			user.setError(true);
 			return "profile";
 		}
 
 	}
+
 
 	/*
 	 * @RequestMapping(value = "/hello/", method = RequestMethod.GET) public

@@ -160,7 +160,7 @@ body, #mainWrapper, .form-control {
 	padding-right: 0;
 }
 
- #myprofileTable {
+ .eaTable {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 12px;
 }

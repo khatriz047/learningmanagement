@@ -8,11 +8,12 @@
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/profile/**" access="hasRole('ADMIN') or hasRole('STUDENT') or hasRole('SCHOOL')" />
+		<intercept-url pattern="/profile/**"
+			access="hasRole('ADMIN') or hasRole('STUDENT') or hasRole('SCHOOL')" />
 		<form-login login-page="/login" username-parameter="username"
 			password-parameter="password" authentication-success-handler-ref="customSuccessHandler"
 			authentication-failure-url="/logout" />
-		<csrf />
+		<csrf disabled="true" />
 	</http>
 
 	<authentication-manager>

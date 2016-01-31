@@ -13,23 +13,28 @@
 		<li><a href="#changepassword" role="tab" data-toggle="tab"> <icon
 					class="glyphicon glyphicon-edit"></icon> Change Password
 		</a></li>
+		<li><a href="#changephoto" role="tab" data-toggle="tab"> <icon
+					class="glyphicon glyphicon-edit"></icon> Change Photo
+		</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 
-		<div class="tab-pane fade active in" id="myprofile">
+		<div class="tab-pane fade ${user.error?'':'active in'}" id="myprofile">
 			<div class="panel panel-default">
-				<table class="table table-striped" id="myprofileTable">
+				<table class="table table-striped eaTable">
 
+
+
+					<c:if test="${!user.error}">
+					</c:if>
 					<tr>
 						<td class="col-md-2 control-label">Photo</td>
 						<td><img src="resources/no_image.jpg" class="img-thumbnail"
 							alt="Cinque Terre" width="120"></td>
 					</tr>
-					<c:if test="${not empty error}">
-					
-					</c:if>
+
 					<tr>
 						<td class="col-md-2 control-label">Your Identification Number</td>
 						<td><span class="label label-default">${user.usernumber}</span></td>
@@ -124,7 +129,11 @@
 		<div class="tab-pane fade" id="changepassword">
 			<jsp:directive.include file="changepassword.jsp" />
 		</div>
-		<div class="tab-pane fade" id="editprofile">
+		<div class="tab-pane fade" id="changephoto">
+			<jsp:directive.include file="changephoto.jsp" />
+		</div>
+		<div class="tab-pane fade ${user.error?'active in':''}"
+			id="editprofile">
 			<div class="panel panel-default">
 				<div class="formcontainer">
 					<!-- Row start -->
@@ -137,11 +146,20 @@
 
 									<form:hidden path="id" value="${user.id}" />
 
+
+									<div class="form-group">
+										<label class="col-md-2 control-label">Photo</label>
+										<div class="col-md-10" style="text-align: left;">
+											<img src="resources/no_image.jpg" class="img-thumbnail"
+												alt="Cinque Terre" width="120">
+										</div>
+									</div>
+
 									<div class="form-group">
 										<label class="col-md-2 control-label">First Name</label>
 										<div class="col-md-10">
 											<form:select path="prefix" class="form-control"
-												style="width: 80px; float: left; margin-right: 10px;">
+												style="width: 80px; float: left;margin-right: 10px;; ">
 												<form:option value="Mr" selected="selected">Mr.</form:option>
 												<form:option value="Mrs">Mrs.</form:option>
 

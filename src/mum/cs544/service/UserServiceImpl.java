@@ -36,4 +36,20 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public List<User> findByUsernameOrEmail(String username, String email) {
+		return userdao.findByUsernameOrEmail(username, email);
+	}
+
+	@Override
+	public User findById(long id) {
+		return userdao.findById(id);
+	}
+
+	@Override
+	public void updateUserPassword(String password, long id) {
+		userdao.updateUserPassword(password, id);
+		
+	}
+
 }

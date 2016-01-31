@@ -17,6 +17,8 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -44,7 +46,8 @@ public class User {
 	@Column(table = "profile")
 	private String lastname;
 	@Column(table = "profile")
-	@Email
+	@Email(message = "Please provide a valid email address")
+	@Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
 	private String email;
 	@Column(table = "profile")
 	private String usernumber;
@@ -71,6 +74,8 @@ public class User {
 	@Column(table = "profile")
 	@Temporal(value = TemporalType.DATE)
 	private Date enrolledDate;
+	@Transient
+	private boolean error = false;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -260,6 +265,14 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
 	}
 
 }
