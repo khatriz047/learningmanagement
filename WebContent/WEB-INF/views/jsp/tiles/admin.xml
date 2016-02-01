@@ -21,22 +21,28 @@
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/admin/school.jsp" />
 	</definition>
-	
+
 	<!-- Role Page -->
 	<definition name="role" extends="admin">
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/admin/role.jsp" />
 	</definition>
-	
+
 	<!-- User Page -->
 	<definition name="user" extends="admin">
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/admin/user.jsp" />
 	</definition>
-	
+
 	<!-- Profile Page -->
 	<definition name="profile" extends="admin">
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/profile.jsp" />
+	</definition>
+
+	<!-- Portal Page -->
+	<definition name="portal" extends="admin">
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/portal.jsp" />
 	</definition>
 </tiles-definitions>

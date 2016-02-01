@@ -1,9 +1,14 @@
 package mum.cs544.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "question")
 public class Question {
@@ -12,12 +17,7 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String name;
-
-	public Question(String name) {
-		this.name = name;
-
-	}
+	private String title;
 
 	public long getId() {
 		return id;
@@ -27,12 +27,37 @@ public class Question {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
+	public Set<Answer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Set<Answer> answer) {
+		this.answer = answer;
+	}
+
+	private Date postDate;
+
+	@OneToMany
+	private Set<Answer> answer = new HashSet<>();
+
+	public Question() {
+
 	}
 
 }

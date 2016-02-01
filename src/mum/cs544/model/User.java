@@ -81,6 +81,10 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Role> roles = new HashSet<>();
 
+	//relation with resource
+	@OneToMany
+	private Set<Resources> resource = new HashSet<>();
+
 	public User() {
 
 	}

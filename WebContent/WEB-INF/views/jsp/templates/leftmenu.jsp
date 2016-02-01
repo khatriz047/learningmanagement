@@ -20,6 +20,14 @@
 						class="fa-stack fa-lg pull-left"><i
 							class="fa fa-flag fa-stack-1x "></i></span> Role</a></li>
 				<li class="active"><a
+					href="${pageContext.request.contextPath}/portal/question"><span
+						class="fa-stack fa-lg pull-left"><i
+							class="fa fa-flag fa-stack-1x "></i></span> Post Question</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/portal/answer"><span
+						class="fa-stack fa-lg pull-left"><i
+							class="fa fa-flag fa-stack-1x "></i></span> Answer Questions</a></li>
+				<li class="active"><a
 					href="${pageContext.request.contextPath}/admin/school"><span
 						class="fa-stack fa-lg pull-left"><i
 							class="fa fa-cloud-download fa-stack-1x "></i></span>School</a></li>

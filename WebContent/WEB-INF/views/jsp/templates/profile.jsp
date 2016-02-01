@@ -14,7 +14,7 @@
 					class="glyphicon glyphicon-edit"></icon> Change Password
 		</a></li>
 		<li><a href="#changephoto" role="tab" data-toggle="tab"> <icon
-					class="glyphicon glyphicon-edit"></icon> Change Photo
+					class="glyphicon glyphicon-edit"></icon> Change Photos
 		</a></li>
 	</ul>
 
