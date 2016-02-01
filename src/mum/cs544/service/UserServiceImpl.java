@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import mum.cs544.dao.RoleDao;
 import mum.cs544.dao.UserDao;
+import mum.cs544.model.Role;
 import mum.cs544.model.User;
 
 @Service("userService")
@@ -17,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	@Resource
 	private UserDao userdao;
+
+	@Resource
+	private RoleDao roledao;
 
 	@Override
 	public User findByUsername(String username) {
@@ -49,7 +54,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUserPassword(String password, long id) {
 		userdao.updateUserPassword(password, id);
-		
+
+	}
+
+	@Override
+	public User addSchoolUser(User schoolUser) {
+		Role role = roledao.findByType("SCHOOL");
+		schoolUser.setActive(true);
+		schoolUser.addRole(role);
+		return userdao.save(schoolUser);
+	}
+
+	@Override
+	public void activateUser(boolean active, long id) {
+		userdao.activateUser(active, id);
+
 	}
 
 }

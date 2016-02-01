@@ -10,7 +10,7 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private String type;
 	private String description;
 
@@ -22,11 +22,11 @@ public class Role {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -50,7 +50,8 @@ public class Role {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -64,6 +65,11 @@ public class Role {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (id != other.id)
 			return false;
 		if (type == null) {

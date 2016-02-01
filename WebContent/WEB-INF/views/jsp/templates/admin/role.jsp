@@ -113,17 +113,21 @@
 												<tr>
 													<td>${r.type}</td>
 													<td>${r.description}</td>
-													<td><form id="${r.id}-delete"
+													<%-- <td><form id="${r.id}-delete"
 															action="role/delete.htm?${r.id}" method="POST">
 															<input id="id" name="id" type="hidden" value="${r.id}" />
 															<button type="submit" id="bth-search"
 																class="btn btn-primary btn-sm">Delete</button>
 
-														</form></td>
+														</form></td> --%>
+													<td><input class="delete" type="image" width="24"
+														value="submit" src="../resources/img/Delete24.gif"
+														onClick="javascript:doDeleteRole(${r.id});return false;"></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<div id="roleDeleteMsg"></div>
 
 								</div>
 
@@ -139,4 +143,21 @@
 
 
 </div>
+
+<script type="text/javascript">
+function doDeleteRole(id) {
+		$.ajax({
+			type : 'POST',
+			url : 'role/delete',
+			data : 'id=' + id,
+			success : function(message) {
+				window.location.href = "role";
+				//$('#roleDeleteMsg').html("Deleted!");
+			},
+			error : function(e) {
+				//$('#roleDeleteMsg').html("Failed!");
+			}
+		});
+	}
+</script>
 

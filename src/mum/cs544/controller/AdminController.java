@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import mum.cs544.dto.ChangePasswordDTO;
 import mum.cs544.model.Role;
+import mum.cs544.model.User;
 import mum.cs544.service.RoleService;
 import mum.cs544.service.UserService;
 
@@ -18,13 +18,20 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
-
 	@Autowired
 	RoleService roleService;
 
 	@RequestMapping(value = "/school", method = RequestMethod.GET)
 	public String schoolPage(ModelMap model) {
+		model.addAttribute("schoolUsers", userService.findAllUsers());
+		model.addAttribute("schoolUser", new User());
 		return "school";
+	}
+
+	@RequestMapping(value = "/school", method = RequestMethod.POST)
+	public String addSchool(User schoolUser) {
+		userService.addSchoolUser(schoolUser);
+		return "redirect:/admin/school";
 	}
 
 	@RequestMapping(value = "/role", method = RequestMethod.GET)
@@ -42,10 +49,17 @@ public class AdminController {
 		return "redirect:/admin/role";
 	}
 
-	@RequestMapping(value = "/delete.htm", method = RequestMethod.POST)
-	public String deleteRole(@RequestParam("id") Long id) {
+	@RequestMapping(value = "/role/delete", method = RequestMethod.POST)
+	public String deleteRole(@RequestParam("id") long id) {
 
 		roleService.delete(id);
+		return "redirect:/admin/role";
+	}
+
+	@RequestMapping(value = "/school/activate", method = RequestMethod.POST)
+	public String activateSchool(@RequestParam("id") long id, @RequestParam("active") boolean active) {
+
+		userService.activateUser(active, id);
 		return "redirect:/admin/role";
 	}
 

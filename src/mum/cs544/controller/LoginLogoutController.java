@@ -32,6 +32,33 @@ public class LoginLogoutController {
 		return "admin";
 	}
 
+	@RequestMapping(value = "/school/**", method = RequestMethod.GET)
+	public String schoolAdminPage(ModelMap model) {
+
+		String username = getPrincipal();
+		model.addAttribute("username", username);
+
+		return "schooladmin";
+	}
+	
+	@RequestMapping(value = "/faculty/**", method = RequestMethod.GET)
+	public String facultyAdminPage(ModelMap model) {
+
+		String username = getPrincipal();
+		model.addAttribute("username", username);
+
+		return "facultyadmin";
+	}
+	
+	@RequestMapping(value = "/professor/**", method = RequestMethod.GET)
+	public String professorAdminPage(ModelMap model) {
+
+		String username = getPrincipal();
+		model.addAttribute("username", username);
+
+		return "professoradmin";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage() {
 		return "login";

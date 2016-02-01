@@ -16,6 +16,10 @@ public interface UserService {
 	User findById(long id);
 
 	void updateUserPassword(String password, long id);
+	
+	User addSchoolUser(User schoolUser);
+	
+	void activateUser(boolean active,long id);
 
 	/*
 	 * User findById(int id);

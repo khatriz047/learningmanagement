@@ -11,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import mum.cs544.model.User;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Integer> {
+public interface UserDao extends JpaRepository<User, Long> {
 	User findByUsername(String username);
 
 	User findById(long id);
+
+	/*User save(User role);*/
 
 	@Modifying
 	@Query("update mum.cs544.model.User set prefix=:prefix,firstname=:firstname,lastname=:lastname,email=:email,contactNumber=:contactNumber,country=:country,city=:city,state=:state,zip=:zip,address=:address where id=:id")
@@ -29,5 +31,10 @@ public interface UserDao extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query("update mum.cs544.model.User set password=:password where id=:id")
 	void updateUserPassword(@Param("password") String password, @Param("id") long id);
+	
+	@Modifying
+	@Query("update mum.cs544.model.User set active=:active where id=:id")
+	void activateUser(@Param("active") boolean active, @Param("id") long id);
+
 
 }

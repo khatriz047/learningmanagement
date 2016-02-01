@@ -4,11 +4,11 @@
     <ul class="nav nav-tabs" role="tablist">
       <li class="active">
           <a href="#list" role="tab" data-toggle="tab">
-              <icon class="glyphicon glyphicon-list 1X"></icon> School List
+              <icon class="glyphicon glyphicon-th-list"></icon> School List
           </a>
       </li>
       <li><a href="#add" role="tab" data-toggle="tab">
-          <icon class="glyphicon glyphicon-plu"></icon> Add School
+          <icon class="glyphicon glyphicon-plus"></icon> Add School
           </a>
       </li>
     </ul>

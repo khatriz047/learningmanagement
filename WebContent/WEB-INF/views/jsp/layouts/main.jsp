@@ -36,9 +36,6 @@
 			<tiles:insertAttribute name="header" />
 		</div>
 		<div id="body">
-			<div id="navigation">
-				<tiles:insertAttribute name="navigation" />
-			</div>
 			<div id="leftmenu">
 				<tiles:insertAttribute name="leftmenu" />
 			</div>

@@ -8,6 +8,7 @@
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/school/**" access="hasRole('SCHOOL')" />
 		<intercept-url pattern="/profile/**"
 			access="hasRole('ADMIN') or hasRole('STUDENT') or hasRole('SCHOOL')" />
 		<form-login login-page="/login" username-parameter="username"

@@ -11,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
@@ -41,13 +44,10 @@ public class User {
 	@Column(table = "profile")
 	private String prefix;
 	@Column(table = "profile")
-	@NotEmpty
 	private String firstname;
 	@Column(table = "profile")
 	private String lastname;
 	@Column(table = "profile")
-	@Email(message = "Please provide a valid email address")
-	@Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
 	private String email;
 	@Column(table = "profile")
 	private String usernumber;
@@ -74,11 +74,16 @@ public class User {
 	@Column(table = "profile")
 	@Temporal(value = TemporalType.DATE)
 	private Date enrolledDate;
+	@Column(table = "profile")
+	private String schoolname;
 	@Transient
 	private boolean error = false;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	/* @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) */
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_id") })
 	private Set<Role> roles = new HashSet<>();
 
 	public User() {
@@ -161,6 +166,10 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public void addRole(Role role) {
+		this.roles.add(role);
 	}
 
 	public String getImageUrl() {
@@ -273,6 +282,14 @@ public class User {
 
 	public void setError(boolean error) {
 		this.error = error;
+	}
+
+	public String getSchoolname() {
+		return schoolname;
+	}
+
+	public void setSchoolname(String schoolname) {
+		this.schoolname = schoolname;
 	}
 
 }
