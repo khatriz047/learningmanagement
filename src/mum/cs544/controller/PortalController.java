@@ -20,6 +20,7 @@ public class PortalController {
 
 	@RequestMapping(value = "/portal/question", method = RequestMethod.GET)
 	public String postQuestion(Model model) {
+		model.addAttribute("list", portalService.getAllQuestion());
 		model.addAttribute("question", new Question());
 		return "portal";
 
@@ -27,11 +28,9 @@ public class PortalController {
 
 	@RequestMapping(value = "/portal/question", method = RequestMethod.POST)
 	public String postQuestion(Question question) {
-
 		question.setPostDate(new Date());
 		portalService.postQuestion(question);
-
-		return "redirect:/portal";
+		return "redirect:/portal/question";
 
 	}
 

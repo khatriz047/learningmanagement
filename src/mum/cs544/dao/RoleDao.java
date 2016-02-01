@@ -7,5 +7,5 @@ import mum.cs544.model.Role;
 public interface RoleDao extends JpaRepository<Role, Long> {
 
 	Role save(Role role);
-
+	
 }

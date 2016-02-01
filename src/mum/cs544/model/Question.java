@@ -16,8 +16,25 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	private String title;
+	private String name;
+
+
+	private Date postDate;
+	@OneToMany
+	private Set<Answer> answer = new HashSet<>();
+
+	public Question() {
+
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public long getId() {
 		return id;
@@ -49,15 +66,6 @@ public class Question {
 
 	public void setAnswer(Set<Answer> answer) {
 		this.answer = answer;
-	}
-
-	private Date postDate;
-
-	@OneToMany
-	private Set<Answer> answer = new HashSet<>();
-
-	public Question() {
-
 	}
 
 }
