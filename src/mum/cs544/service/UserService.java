@@ -7,36 +7,24 @@ import mum.cs544.model.User;
 public interface UserService {
 	User findByUsername(String username);
 
+	List<User> findAllSchoolUsers();
+
+	List<User> findAllAdminUsers();
+
 	List<User> findAllUsers();
 
 	void updateUserProfile(User user);
+
+	void updateProfilePicture(String imageUrl, long id);
 
 	List<User> findByUsernameOrEmail(String username, String email);
 
 	User findById(long id);
 
 	void updateUserPassword(String password, long id);
-	
-	User addSchoolUser(User schoolUser);
-	
-	void activateUser(boolean active,long id);
 
-	/*
-	 * User findById(int id);
-	 * 
-	 * User findByUsername(String username);
-	 * 
-	 * void saveUser(User user);
-	 * 
-	 * void updateUser(User user);
-	 * 
-	 * void deleteUserById(long id);
-	 * 
-	 * List<User> findAllUsers();
-	 * 
-	 * void deleteAllUsers();
-	 * 
-	 * public boolean isUserExist(User user);
-	 */
+	User addUser(User user);
+
+	void activateUser(boolean active, long id);
 
 }

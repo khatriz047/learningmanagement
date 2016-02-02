@@ -6,31 +6,32 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name = "user")
 @SecondaryTables(@SecondaryTable(name = "profile", pkJoinColumns = {
-		@PrimaryKeyJoinColumn(name = "profile_id", referencedColumnName = "id") }))
+		@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id") }))
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User {
 
 	@Id
@@ -56,8 +57,6 @@ public class User {
 	@Column(table = "profile")
 	private String contactNumber;
 	@Column(table = "profile")
-	private String staffInformation;
-	@Column(table = "profile")
 	private String studentInformation;
 	@Column(table = "profile")
 	private String city;
@@ -73,15 +72,16 @@ public class User {
 	private String homeCountry;
 	@Column(table = "profile")
 	@Temporal(value = TemporalType.DATE)
-	private Date enrolledDate;
+	private Date effectivedate;
 	@Column(table = "profile")
-	private String schoolname;
+	@Temporal(value = TemporalType.DATE)
+	private Date terminationdate;
 	@Transient
 	private boolean error = false;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	/* @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) */
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
 	private Set<Role> roles = new HashSet<>();
@@ -188,14 +188,6 @@ public class User {
 		this.contactNumber = contactNumber;
 	}
 
-	public String getStaffInformation() {
-		return staffInformation;
-	}
-
-	public void setStaffInformation(String staffInformation) {
-		this.staffInformation = staffInformation;
-	}
-
 	public String getStudentInformation() {
 		return studentInformation;
 	}
@@ -252,14 +244,6 @@ public class User {
 		this.prefix = prefix;
 	}
 
-	public Date getEnrolledDate() {
-		return enrolledDate;
-	}
-
-	public void setEnrolledDate(Date enrolledDate) {
-		this.enrolledDate = enrolledDate;
-	}
-
 	public boolean isResetRequest() {
 		return resetRequest;
 	}
@@ -284,12 +268,20 @@ public class User {
 		this.error = error;
 	}
 
-	public String getSchoolname() {
-		return schoolname;
+	public Date getEffectivedate() {
+		return effectivedate;
 	}
 
-	public void setSchoolname(String schoolname) {
-		this.schoolname = schoolname;
+	public void setEffectivedate(Date effectivedate) {
+		this.effectivedate = effectivedate;
+	}
+
+	public Date getTerminationdate() {
+		return terminationdate;
+	}
+
+	public void setTerminationdate(Date terminationdate) {
+		this.terminationdate = terminationdate;
 	}
 
 }

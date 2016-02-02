@@ -1,128 +1,51 @@
 package mum.cs544.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 
-@Entity(name = "school")
-public class School {
+@Entity
+@DiscriminatorValue("SCHOOL")
+@SecondaryTables(@SecondaryTable(name = "school", pkJoinColumns = {
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id") }))
+public class School extends User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	private String schoolName;
-	private String website;
-	private String contactInfo;
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private String country;
-	private int rank;
-	private String logoUrl;
-
-	@OneToMany(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "school_id")
-	private Set<Faculty> faculties = new HashSet<>();
+	@Column(table = "school")
+	private String schoolname;
+	@Column(table = "school")
+	private String websiteurl;
+	@Column(table = "school")
+	private String logourl;
 
 	public School() {
 
 	}
 
-	public long getId() {
-		return id;
+	public String getSchoolname() {
+		return schoolname;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setSchoolname(String schoolname) {
+		this.schoolname = schoolname;
 	}
 
-	public String getSchoolName() {
-		return schoolName;
+	public String getLogourl() {
+		return logourl;
 	}
 
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
+	public void setLogourl(String logourl) {
+		this.logourl = logourl;
 	}
 
-	public String getWebsite() {
-		return website;
+	public String getWebsiteurl() {
+		return websiteurl;
 	}
 
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
-	public String getContactInfo() {
-		return contactInfo;
-	}
-
-	public void setContactInfo(String contactInfo) {
-		this.contactInfo = contactInfo;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getZip() {
-		return zip;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
+	public void setWebsiteurl(String websiteurl) {
+		this.websiteurl = websiteurl;
 	}
 
 }

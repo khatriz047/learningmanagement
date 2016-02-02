@@ -10,7 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mum.cs544.dao.RoleDao;
 import mum.cs544.dao.UserDao;
+import mum.cs544.model.Admin;
+import mum.cs544.model.Professor;
 import mum.cs544.model.Role;
+import mum.cs544.model.School;
+import mum.cs544.model.Student;
 import mum.cs544.model.User;
 
 @Service("userService")
@@ -58,17 +62,49 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addSchoolUser(User schoolUser) {
-		Role role = roledao.findByType("SCHOOL");
-		schoolUser.setActive(true);
-		schoolUser.addRole(role);
-		return userdao.save(schoolUser);
-	}
-
-	@Override
 	public void activateUser(boolean active, long id) {
 		userdao.activateUser(active, id);
 
+	}
+
+	@Override
+	public List<User> findAllSchoolUsers() {
+		return userdao.findAllSchoolUsers();
+	}
+
+	@Override
+	public List<User> findAllAdminUsers() {
+		return userdao.findAllAdminUsers();
+	}
+
+	@Override
+	public User addUser(User user) {
+
+		Role role = null;
+		if (user instanceof School) {
+			role = roledao.findByType("SCHOOL");
+			user = (School) user;
+		} else if (user instanceof Admin) {
+			role = roledao.findByType("ADMIN");
+			user = (Admin) user;
+		} else if (user instanceof Professor) {
+			role = roledao.findByType("PROFESSOR");
+			user = (Professor) user;
+		} else if (user instanceof Student) {
+			role = roledao.findByType("STUDENT");
+			user = (Student) user;
+		}
+
+		user.addRole(role);
+		user.setActive(true);
+
+		return userdao.save(user);
+	}
+
+	@Override
+	public void updateProfilePicture(String imageUrl, long id) {
+		userdao.updateProfilePicture(imageUrl, id);
+		
 	}
 
 }

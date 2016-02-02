@@ -16,7 +16,21 @@ public interface UserDao extends JpaRepository<User, Long> {
 
 	User findById(long id);
 
-	/*User save(User role);*/
+	@Modifying
+	@Query("select s from mum.cs544.model.School s")
+	List<User> findAllSchoolUsers();
+
+	@Modifying
+	@Query("select p from mum.cs544.model.Professor p")
+	List<User> findAllProfessorUsers();
+
+	@Modifying
+	@Query("select a from mum.cs544.model.Admin a")
+	List<User> findAllAdminUsers();
+
+	@Modifying
+	@Query("select s from mum.cs544.model.Student s")
+	List<User> findAllStudentUsers();
 
 	@Modifying
 	@Query("update mum.cs544.model.User set prefix=:prefix,firstname=:firstname,lastname=:lastname,email=:email,contactNumber=:contactNumber,country=:country,city=:city,state=:state,zip=:zip,address=:address where id=:id")
@@ -31,10 +45,13 @@ public interface UserDao extends JpaRepository<User, Long> {
 	@Modifying
 	@Query("update mum.cs544.model.User set password=:password where id=:id")
 	void updateUserPassword(@Param("password") String password, @Param("id") long id);
-	
+
+	@Modifying
+	@Query("update mum.cs544.model.User set imageUrl=:imageUrl where id=:id")
+	void updateProfilePicture(@Param("imageUrl") String imageUrl, @Param("id") long id);
+
 	@Modifying
 	@Query("update mum.cs544.model.User set active=:active where id=:id")
 	void activateUser(@Param("active") boolean active, @Param("id") long id);
-
 
 }

@@ -24,7 +24,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException {
 		String targetUrl = determineTargetUrl(authentication);
-		
+
 		if (response.isCommitted()) {
 			System.out.println("Can't redirect");
 			return;
@@ -50,6 +50,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			url = "/home";
 		} else if (isSchool(roles)) {
 			url = "/school";
+		} else if (isProfessor(roles)) {
+			url = "/professor";
+		} else if (isStudent(roles)) {
+			url = "/student";
 		} else {
 			url = "/accessDenied";
 		}
@@ -78,9 +82,23 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		return false;
 	}
-	
+
 	private boolean isSchool(List<String> roles) {
 		if (roles.contains("ROLE_SCHOOL")) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isProfessor(List<String> roles) {
+		if (roles.contains("ROLE_PROFESSOR")) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isStudent(List<String> roles) {
+		if (roles.contains("ROLE_STUDENT")) {
 			return true;
 		}
 		return false;

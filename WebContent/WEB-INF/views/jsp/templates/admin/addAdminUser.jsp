@@ -7,14 +7,18 @@
 			<div class="col-md-12 col-sm-6 col-xs-12">
 
 				<div class="panel-body">
-					<form:form class="form-horizontal row-border" action="school"
-						method="post" modelAttribute="schoolUser">
-
-
+					<form:form class="form-horizontal row-border" action="user/admin"
+						method="post" modelAttribute="admin">
 						<div class="form-group">
-							<label class="col-md-2 control-label">School Name</label>
+							<label class="col-md-2 control-label">First Name</label>
 							<div class="col-md-10">
-								<form:input path="schoolname" class="form-control" />
+								<form:input path="firstname" class="form-control" id="firstname" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Last Name</label>
+							<div class="col-md-10">
+								<form:input path="lastname" class="form-control" id="lastname" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -26,7 +30,7 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">password</label>
 							<div class="col-md-10">
-								<form:input path="password" class="form-control" />
+								<form:password path="password" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group">

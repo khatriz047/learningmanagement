@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import mum.cs544.model.Admin;
 import mum.cs544.model.Role;
-import mum.cs544.model.User;
+import mum.cs544.model.School;
 import mum.cs544.service.RoleService;
 import mum.cs544.service.UserService;
 
@@ -21,17 +22,27 @@ public class AdminController {
 	@Autowired
 	RoleService roleService;
 
-	@RequestMapping(value = "/school", method = RequestMethod.GET)
-	public String schoolPage(ModelMap model) {
-		model.addAttribute("schoolUsers", userService.findAllUsers());
-		model.addAttribute("schoolUser", new User());
-		return "school";
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String userPage(ModelMap model) {
+		model.addAttribute("schoolUsers", userService.findAllSchoolUsers());
+		model.addAttribute("school", new School());
+		model.addAttribute("adminUsers", userService.findAllAdminUsers());
+		model.addAttribute("admin", new Admin());
+		return "user";
 	}
 
-	@RequestMapping(value = "/school", method = RequestMethod.POST)
-	public String addSchool(User schoolUser) {
-		userService.addSchoolUser(schoolUser);
-		return "redirect:/admin/school";
+	@RequestMapping(value = "/user/school", method = RequestMethod.POST)
+	public String addSchool(School schoolUser) {
+		System.out.println(schoolUser.getClass());
+		userService.addUser(schoolUser);
+		return "redirect:/admin/user";
+	}
+
+	@RequestMapping(value = "/user/admin", method = RequestMethod.POST)
+	public String addAdmin(Admin adminUser) {
+		System.out.println(adminUser.getClass());
+		userService.addUser(adminUser);
+		return "redirect:/admin/user";
 	}
 
 	@RequestMapping(value = "/role", method = RequestMethod.GET)
@@ -63,9 +74,11 @@ public class AdminController {
 		return "redirect:/admin/role";
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String userPage(ModelMap model) {
-		return "user";
+	@RequestMapping(value = "/admin/activate", method = RequestMethod.POST)
+	public String activateAdmin(@RequestParam("id") long id, @RequestParam("active") boolean active) {
+
+		userService.activateUser(active, id);
+		return "redirect:/admin/role";
 	}
 
 }

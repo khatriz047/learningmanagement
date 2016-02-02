@@ -40,6 +40,8 @@
 				<value>WEB-INF/views/jsp/tiles/login.xml</value>
 				<value>WEB-INF/views/jsp/tiles/admin.xml</value>
 				<value>WEB-INF/views/jsp/tiles/school.xml</value>
+				<value>WEB-INF/views/jsp/tiles/professor.xml</value>
+				<value>WEB-INF/views/jsp/tiles/student.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -79,10 +81,8 @@
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
-	<!-- <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-	</bean> -->
+	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> </bean> -->
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -98,6 +98,10 @@
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
 	<jpa:repositories base-package="mum.cs544.dao" />

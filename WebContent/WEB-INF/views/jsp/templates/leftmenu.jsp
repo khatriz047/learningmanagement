@@ -26,9 +26,9 @@
 						class="fa-stack fa-lg pull-left"><i
 							class="fa glyphicon glyphicon-lock fa-stack-1x "></i></span> Role</a></li>
 				<li class="active"><a
-					href="${pageContext.request.contextPath}/admin/school"><span
+					href="${pageContext.request.contextPath}/admin/user"><span
 						class="fa-stack fa-lg pull-left"><i
-							class="fa fa-cloud-download fa-stack-1x "></i></span>School</a></li>
+							class="fa fa-cloud-download fa-stack-1x "></i></span>User</a></li>
 			</security:authorize>
 
 			<security:authorize access="hasRole('STUDENT')">

@@ -10,22 +10,20 @@
 					<table class="table table-striped eaTable">
 						<thead>
 							<tr>
-								<th>School Name</th>
+								<th>Name</th>
 								<th>Email</th>
-								<th>User</th>
 								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="su" items="${schoolUsers}">
+							<c:forEach var="ad" items="${adminUsers}">
 								<tr>
-									<td>${su.schoolname}</td>
-									<td>${su.email}</td>
-									<td>${su.firstname}${su.lastname}</td>
+									<td>${ad.firstname}${ad.lastname}</td>
+									<td>${ad.email}</td>
 									<td><input type="submit"
-										onclick="javascript:doActiveSchoolUser(${su.id},${!su.active});return false;"
-										value="${!su.active?'Activate':'Deactivate'}"
-										class="btn ${!su.active?'btn-success':'btn-danger'}"></td>
+										onclick="javascript:doActiveAdminUser(${ad.id},${!ad.active});return false;"
+										value="${!ad.active?'Activate':'Deactivate'}"
+										class="btn ${!ad.active?'btn-success':'btn-danger'}"></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -40,10 +38,10 @@
 </div>
 
 <script type="text/javascript">
-function doActiveSchoolUser(id,active) {
+function doActiveAdminUser(id,active) {
 		$.ajax({
 			type : 'POST',
-			url : 'school/activate',
+			url : 'admin/activate',
 			data : 'id=' + id+'&active='+active,
 			success : function(message) {
 				window.location.href = "user";

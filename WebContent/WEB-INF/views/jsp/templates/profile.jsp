@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <div class="container">
 	<!-- <div class="generic-container" ng-controller="UserController as ctrl"> -->
 	<!-- Nav tabs -->
@@ -31,8 +33,8 @@
 					</c:if>
 					<tr>
 						<td class="col-md-2 control-label">Photo</td>
-						<td><img src="resources/no_image.jpg" class="img-thumbnail"
-							alt="Cinque Terre" width="120"></td>
+						<td><img src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}" class="img-thumbnail"
+							alt="${user.firstname}" width="120"></td>
 					</tr>
 
 					<tr>
@@ -119,8 +121,8 @@
 					</tr>
 
 					<tr>
-						<td class="col-md-2 control-label">Enrolled Date</td>
-						<td><span class="label label-default">${user.enrolledDate}</span></td>
+						<td class="col-md-2 control-label">Effective Date</td>
+						<td><span class="label label-default">${user.effectivedate}</span></td>
 					</tr>
 				</table>
 			</div>
@@ -130,7 +132,9 @@
 			<jsp:directive.include file="changepassword.jsp" />
 		</div>
 		<div class="tab-pane fade" id="changephoto">
-			<jsp:directive.include file="changephoto.jsp" />
+
+			<jsp:directive.include file="uploadphoto.jsp" />
+			<%-- <jsp:directive.include file="changephoto.jsp" /> --%>
 		</div>
 		<div class="tab-pane fade ${user.error?'active in':''}"
 			id="editprofile">
@@ -146,15 +150,16 @@
 
 									<form:hidden path="id" value="${user.id}" />
 
-
 									<div class="form-group">
 										<label class="col-md-2 control-label">Photo</label>
 										<div class="col-md-10" style="text-align: left;">
-											<img src="resources/no_image.jpg" class="img-thumbnail"
+											<img src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}" class="img-thumbnail"
 												alt="Cinque Terre" width="120">
 										</div>
 									</div>
 
+									<%-- <security:authorize
+										access="hasRole('ADMIN')"> --%>
 									<div class="form-group">
 										<label class="col-md-2 control-label">First Name</label>
 										<div class="col-md-10">
@@ -174,6 +179,7 @@
 											<form:input path="lastname" class="form-control" />
 										</div>
 									</div>
+									<%-- </security:authorize> --%>
 									<div class="form-group">
 										<label class="col-md-2 control-label">Email</label>
 										<div class="col-md-10">
@@ -258,7 +264,4 @@
 			</div>
 		</div>
 	</div>
-
-
-
 </div>
