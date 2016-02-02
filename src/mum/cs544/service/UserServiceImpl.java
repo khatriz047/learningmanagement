@@ -78,6 +78,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> findAllProfessorUsers() {
+		return userdao.findAllProfessorUsers();
+	}
+
+	@Override
 	public User addUser(User user) {
 
 		Role role = null;
@@ -104,7 +109,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateProfilePicture(String imageUrl, long id) {
 		userdao.updateProfilePicture(imageUrl, id);
-		
+
 	}
 
 }

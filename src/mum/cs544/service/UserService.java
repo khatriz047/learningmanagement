@@ -12,6 +12,8 @@ public interface UserService {
 	List<User> findAllAdminUsers();
 
 	List<User> findAllUsers();
+	
+	List<User> findAllProfessorUsers();
 
 	void updateUserProfile(User user);
 

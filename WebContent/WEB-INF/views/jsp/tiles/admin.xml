@@ -16,24 +16,21 @@
 	</definition>
 	<!-- User Page -->
 	<definition name="user" extends="admin">
+		<put-attribute name="title" value="Admin user page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/admin/user.jsp" />
 	</definition>
-	
+
 	<!-- Role Page -->
 	<definition name="role" extends="admin">
+		<put-attribute name="title" value="Admin role page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/admin/role.jsp" />
 	</definition>
-	
-	<!-- User Page -->
-	<definition name="user" extends="admin">
-		<put-attribute name="content" type="template"
-			value="/WEB-INF/views/jsp/templates/admin/user.jsp" />
-	</definition>
-	
+
 	<!-- Profile Page -->
 	<definition name="profile" extends="admin">
+		<put-attribute name="title" value="Profile page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/profile.jsp" />
 	</definition>

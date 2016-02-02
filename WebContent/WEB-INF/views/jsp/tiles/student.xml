@@ -4,7 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="studentpage" template="/WEB-INF/views/jsp/layouts/main.jsp">
-		<put-attribute name="title" value="Professor page" />
+		<put-attribute name="title" value="Student page" />
 		<put-attribute name="header" type="template"
 			value="/WEB-INF/views/jsp/templates/header.jsp" />
 		<put-attribute name="leftmenu" type="template"
@@ -16,6 +16,7 @@
 	</definition>
 	<!-- Resourse Page -->
 	<definition name="resourcestudent" extends="studentpage">
+		<put-attribute name="title" value="Student resourse page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/student/resource.jsp" />
 	</definition>

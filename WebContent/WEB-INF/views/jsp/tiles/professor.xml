@@ -16,11 +16,13 @@
 	</definition>
 	<!-- Student Page -->
 	<definition name="student" extends="professoradmin">
+		<put-attribute name="title" value="Professor student page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/professor/student.jsp" />
 	</definition>
 	<!-- Resourse Page -->
 	<definition name="resourceprofessor" extends="professoradmin">
+		<put-attribute name="title" value="Professor resourse page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/professor/resource.jsp" />
 	</definition>

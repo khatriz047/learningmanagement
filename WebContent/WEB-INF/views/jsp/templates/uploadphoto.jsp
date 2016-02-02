@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <div class="formcontainer">
 	<div class="row">
 		<div class="col-md-12 col-sm-6 col-xs-12">
@@ -175,3 +176,4 @@
 		}
 	}
 </script>
+<script src="<c:url value='/resources/js/myuploadfunction.js' />"></script>

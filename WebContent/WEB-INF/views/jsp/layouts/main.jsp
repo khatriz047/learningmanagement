@@ -29,7 +29,6 @@
 <script src="<c:url value='/resources/js/vendor/jquery.ui.widget.js' />"></script>
 <script src="<c:url value='/resources/js/jquery.iframe-transport.js' />"></script>
 <script src="<c:url value='/resources/js/jquery.fileupload.js' />"></script>
-<script src="<c:url value='/resources/js/myuploadfunction.js' />"></script>
 
 <script
 	src="<c:url value='/resources/js/controller/user_controller.js' />"></script>

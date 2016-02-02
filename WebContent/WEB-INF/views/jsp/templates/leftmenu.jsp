@@ -42,9 +42,15 @@
 							class="fa fa-cart-plus fa-stack-1x "></i></span>Faculty
 				</a></li>
 
-				<li class="active"><a href="#"><span
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/school/course"><span
 						class="fa-stack fa-lg pull-left"><i
-							class="fa fa-wrench fa-stack-1x "></i></span>Courses</a></li>
+							class="fa fa-wrench fa-stack-1x "></i></span>Course</a></li>
+
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/school/user"><span
+						class="fa-stack fa-lg pull-left"><i
+							class="fa fa-wrench fa-stack-1x "></i></span>User</a></li>
 			</security:authorize>
 
 			<security:authorize access="hasRole('PROFESSOR')">
@@ -53,12 +59,14 @@
 						class="fa-stack fa-lg pull-left"><i
 							class="fa fa-youtube-play fa-stack-1x "></i></span>Users</a></li>
 			</security:authorize>
-			
-			<li class="active"><a href="#"><span
+
+			<li class="active"><a
+				href="${pageContext.request.contextPath}/setting"><span
 					class="fa-stack fa-lg pull-left"><i
 						class="fa fa-cog fa-stack-1x "></i></span>Setting</a></li>
 
-			<li class="active"><a href="#"><span
+			<li class="active"><a
+				href="${pageContext.request.contextPath}/help"><span
 					class="fa-stack fa-lg pull-left"><i
 						class="fa fa-cog fa-stack-1x "></i></span>Help</a></li>
 		</ul>
