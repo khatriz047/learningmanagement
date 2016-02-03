@@ -1,7 +1,10 @@
 package mum.cs544.dao;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +26,10 @@ public interface UserDao extends JpaRepository<User, Long> {
 	@Modifying
 	@Query("select p from mum.cs544.model.Professor p")
 	List<User> findAllProfessorUsers();
+
+	/*@Modifying
+	@Query("select p from mum.cs544.model.Professor p")
+	Page<User> getProfessorUsers(Pageable pageable);*/
 
 	@Modifying
 	@Query("select a from mum.cs544.model.Admin a")

@@ -26,10 +26,18 @@
 						<div class="col-md-12 col-sm-6 col-xs-12">
 
 							<div class="panel-body">
-								<form:form class="form-horizontal row-border" action="course"
-									method="post" modelAttribute="course">
+								<form:form class="form-horizontal row-border" id="courseForm"
+									modelAttribute="course" action="course" method="post">
+									<div class="form-group">
+										<label class="col-md-2 control-label">Faculty</label>
+										<div class="col-md-10">
+											<form:select path="faculty.id" class="form-control"
+												style="width: 80px; float: left;margin-right: 10px;; ">
+												<form:options items="${facultiesmap}" />
 
-
+											</form:select>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">Name</label>
 										<div class="col-md-10">
@@ -39,7 +47,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">Description</label>
 										<div class="col-md-10">
-											<form:input path="description" class="form-control" />
+											<form:textarea path="description" class="form-control" />
 										</div>
 									</div>
 
@@ -69,6 +77,7 @@
 										<tr>
 											<th>Name</th>
 											<th>Description</th>
+											<th>Faculty</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -76,6 +85,7 @@
 											<tr>
 												<td>${c.name}</td>
 												<td>${c.description}</td>
+												<td>${c.faculty.name}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -150,5 +160,19 @@ function doDeleteCourse(id) {
 			}
 		});
 	}
+	
+/* $("#courseForm").submit(function(e){
+    $.ajax({
+         url: 'course',
+         type: 'post',
+         async: false,
+         dataType: "json",
+         data:$(this).serialize(),
+         success: function(data) {
+        	 alert(data);
+        	 window.location.href = "course";
+         }
+     })        
+}); */
 </script>
 

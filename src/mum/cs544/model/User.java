@@ -284,4 +284,8 @@ public class User {
 		this.terminationdate = terminationdate;
 	}
 
+	public String getFullName() {
+		return prefix + " " + firstname + " " + lastname;
+	}
+
 }

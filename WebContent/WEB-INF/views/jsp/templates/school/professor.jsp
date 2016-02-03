@@ -1,5 +1,3 @@
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -32,14 +30,24 @@
 										<tr>
 											<th>Name</th>
 											<th>Email</th>
+											<th>Courses</th>
 											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="pu" items="${professorUsers}">
 											<tr>
-												<td>${pu.firstname}${pu.lastname}</td>
+												<td>${pu.getFullName()}</td>
 												<td>${pu.email}</td>
+												<td>
+													<ul>
+														<c:forEach var="c" items="${pu.getCourses()}">
+															<li>${c.name}-${c.faculty.name}</li>
+														</c:forEach>
+													</ul>
+
+
+												</td>
 												<td><input type="submit"
 													onclick="javascript:doActiveAdminUser(${pu.id},${!pu.active});return false;"
 													value="${!pu.active?'Activate':'Deactivate'}"
@@ -67,9 +75,29 @@
 
 							<div class="panel-body">
 								<form:form class="form-horizontal row-border"
-									action="user/professor" method="post"
+									action="professor/professor" method="post"
 									modelAttribute="professor">
+									<div class="form-group">
+										<label class="col-md-2 control-label">Faculty</label>
+										<div class="col-md-10">
+											<form:select id="facultyId" path="" class="form-control"
+												style="width: 80px; float: left;margin-right: 10px;">
+												<form:options items="${facultiesmap}" />
 
+											</form:select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">Courses</label>
+										<div class="col-md-10">
+											<form:select multiple="true" id="coursesId" path="coursesids"
+												class="form-control"
+												style="width: 200px; float: left;margin-right: 10px;; ">
+												<form:option value="" />
+
+											</form:select>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">First Name</label>
 										<div class="col-md-10">
@@ -123,13 +151,16 @@
 
 
 <script type="text/javascript">
+$(document).ready(function () {
+	loadCourses();
+});
 function doActiveAdminUser(id,active) {
 		$.ajax({
 			type : 'POST',
 			url : 'professor/activate',
 			data : 'id=' + id+'&active='+active,
 			success : function(message) {
-				window.location.href = "user";
+				window.location.href = "professor";
 				//$('#roleDeleteMsg').html("Deleted!");
 			},
 			error : function(e) {
@@ -137,5 +168,22 @@ function doActiveAdminUser(id,active) {
 			}
 		});
 	}
+	
+$("#facultyId").change(function(e){
+	
+	loadCourses();
+	
+}); 
+
+function loadCourses(){
+	 $.getJSON("course/jsoncourselist/"+$("#facultyId").val(), function(response){ 
+         $("#coursesId option").remove(); 
+             var options = '';
+             $.each(response, function(index, course) {
+                 options += '<option value="' + course.id + '">' + course.name + '</option>';
+                 $("#coursesId").html(options);
+             });
+     });
+}
 </script>
 

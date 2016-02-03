@@ -39,7 +39,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">Description</label>
 										<div class="col-md-10">
-											<form:input path="description" class="form-control" />
+											<form:textarea path="description" class="form-control" />
 										</div>
 									</div>
 

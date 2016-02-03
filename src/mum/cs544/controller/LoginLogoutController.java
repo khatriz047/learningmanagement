@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import mum.cs544.service.FacultyService;
 import mum.cs544.service.UserService;
 
 @Controller
-@SessionAttributes("username")
+@SessionAttributes({ "username", "navfaculties" })
 public class LoginLogoutController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	private FacultyService facultyService;
 
 	@RequestMapping(value = "/admin/**", method = RequestMethod.GET)
 	public String adminPage(ModelMap model) {
@@ -46,6 +49,7 @@ public class LoginLogoutController {
 
 		String username = getPrincipal();
 		model.addAttribute("username", username);
+		model.addAttribute("navfaculties", facultyService.getFacultiesMap());
 
 		return "professoradmin";
 	}

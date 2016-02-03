@@ -1,6 +1,9 @@
 package mum.cs544.service;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -31,6 +34,30 @@ public class FacultyServiceImpl implements FacultyService {
 	@Override
 	public void delete(long id) {
 		facultyDao.delete(id);
+	}
+
+	@Override
+	public Map<Long, String> getFacultiesMap() {
+		Map<Long, String> faculties = new LinkedHashMap<>();
+		for (Faculty faculty : getFaculties()) {
+			faculties.put(faculty.getId(), faculty.getName());
+		}
+		return faculties;
+
+	}
+
+	@Override
+	public Faculty findById(long id) {
+		return facultyDao.findOne(id);
+	}
+
+	@Override
+	public List<String> getFacultyList() {
+		List<String> faculties = new ArrayList<>();
+		for (Faculty faculty : getFaculties()) {
+			faculties.add(faculty.getName());
+		}
+		return faculties;
 	}
 
 }

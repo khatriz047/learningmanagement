@@ -25,15 +25,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import mum.cs544.dto.ChangePasswordDTO;
 import mum.cs544.model.User;
+import mum.cs544.service.FacultyService;
 import mum.cs544.service.UserService;
 import mum.cs544.utils.FileMeta;
 
 @Controller
-@SessionAttributes("username")
+// @SessionAttributes("username")
 public class MainController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	private FacultyService facultyService;
 
 	@Autowired
 	ServletContext context;
@@ -49,6 +53,16 @@ public class MainController {
 		model.addAttribute("changePasswordDTO", new ChangePasswordDTO());
 
 		return "profile";
+	}
+
+	@RequestMapping(value = "/setting", method = RequestMethod.GET)
+	public String settingePage(Model model) {
+		return "setting";
+	}
+
+	@RequestMapping(value = "/help", method = RequestMethod.GET)
+	public String helpPage(Model model) {
+		return "help";
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)

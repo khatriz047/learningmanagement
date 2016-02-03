@@ -1,15 +1,23 @@
 package mum.cs544.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mum.cs544.model.Course;
 import mum.cs544.model.Faculty;
 import mum.cs544.model.Professor;
+import mum.cs544.model.User;
 import mum.cs544.service.CourseService;
 import mum.cs544.service.FacultyService;
 import mum.cs544.service.UserService;
@@ -53,15 +61,25 @@ public class SchoolController {
 	public String coursePage(ModelMap model) {
 		model.addAttribute("courses", courseService.getCourses());
 		model.addAttribute("course", new Course());
+		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
 		return "course";
 	}
 
 	@RequestMapping(value = "/course", method = RequestMethod.POST)
+	// public @ResponseBody Course addCourse(Course course) {
 	public String addCourse(Course course) {
 
 		courseService.addCourse(course);
 
 		return "redirect:/school/course";
+	}
+
+	@RequestMapping(value = "/course/jsoncourselist/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Course> getCourseList(@PathVariable long id) {
+		if (id == 0) {
+			return new ArrayList<>();
+		}
+		return courseService.getCourses(id);
 	}
 
 	@RequestMapping(value = "/course/delete", method = RequestMethod.POST)
@@ -70,24 +88,31 @@ public class SchoolController {
 		return "redirect:/school/course";
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/professor", method = RequestMethod.GET)
 	public String professorPage(ModelMap model) {
 		model.addAttribute("professorUsers", userService.findAllProfessorUsers());
 		model.addAttribute("professor", new Professor());
+		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
 		return "userprofessor";
 	}
 
-	@RequestMapping(value = "/user/professor", method = RequestMethod.POST)
+	@RequestMapping(value = "/professor/professor", method = RequestMethod.POST)
 	public String addProfessor(Professor professorUser) {
+		if (professorUser.getCoursesids() != null)
+			for (Long id : professorUser.getCoursesids()) {
+				System.out.println(id + "...hello..");
+				professorUser.addCourse(courseService.findById(id));
+			}
+		System.out.println(professorUser.getCoursesids().size());
 		userService.addUser(professorUser);
-		return "redirect:/school/user";
+		return "redirect:/school/professor";
 	}
 
 	@RequestMapping(value = "/professor/activate", method = RequestMethod.POST)
 	public String activateProfessor(@RequestParam("id") long id, @RequestParam("active") boolean active) {
 
 		userService.activateUser(active, id);
-		return "redirect:/school/user";
+		return "redirect:/school/professor";
 	}
 
 }

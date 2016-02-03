@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "course")
 public class Course {
@@ -21,10 +23,9 @@ public class Course {
 
 	private String name;
 	private String description;
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "course_professor", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "professor_id") })
-	private Set<Professor> professors = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "faculty_id")
+	private Faculty faculty;
 
 	public Course() {
 
@@ -54,12 +55,12 @@ public class Course {
 		this.description = description;
 	}
 
-	public Set<Professor> getProfessors() {
-		return professors;
+	public Faculty getFaculty() {
+		return faculty;
 	}
 
-	public void setProfessors(Set<Professor> professors) {
-		this.professors = professors;
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
 	}
 
 }

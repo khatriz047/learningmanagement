@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+
 <div class="container">
 	<!-- <div class="generic-container" ng-controller="UserController as ctrl"> -->
 	<!-- Nav tabs -->
@@ -20,6 +21,8 @@
 		</a></li>
 	</ul>
 
+
+
 	<!-- Tab panes -->
 	<div class="tab-content">
 
@@ -33,8 +36,9 @@
 					</c:if>
 					<tr>
 						<td class="col-md-2 control-label">Photo</td>
-						<td><img src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}" class="img-thumbnail"
-							alt="${user.firstname}" width="120"></td>
+						<td><img
+							src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}"
+							class="img-thumbnail" alt="${user.firstname}" width="120"></td>
 					</tr>
 
 					<tr>
@@ -153,8 +157,9 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">Photo</label>
 										<div class="col-md-10" style="text-align: left;">
-											<img src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}" class="img-thumbnail"
-												alt="Cinque Terre" width="120">
+											<img
+												src="resources/${empty user.imageUrl?'no_image.jpg':user.imageUrl}"
+												class="img-thumbnail" alt="Cinque Terre" width="120">
 										</div>
 									</div>
 
@@ -165,8 +170,11 @@
 										<div class="col-md-10">
 											<form:select path="prefix" class="form-control"
 												style="width: 80px; float: left;margin-right: 10px;; ">
-												<form:option value="Mr" selected="selected">Mr.</form:option>
-												<form:option value="Mrs">Mrs.</form:option>
+												<form:option value="Mr." selected="selected">Mr.</form:option>
+												<form:option value="Mrs.">Mrs.</form:option>
+												<form:option value="Prof.">Prof.</form:option>
+												<form:option value="Dr.">Dr.</form:option>
+												<form:option value="Asst.Prof.">Asst.Prof.</form:option>
 
 											</form:select>
 											<form:input path="firstname" class="form-control" />

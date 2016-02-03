@@ -2,6 +2,7 @@ package mum.cs544.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import mum.cs544.model.Admin;
 import mum.cs544.model.Role;
 import mum.cs544.model.School;
+import mum.cs544.service.QueuedEmailService;
 import mum.cs544.service.RoleService;
 import mum.cs544.service.UserService;
 
@@ -21,6 +23,15 @@ public class AdminController {
 	UserService userService;
 	@Autowired
 	RoleService roleService;
+
+	@Autowired
+	QueuedEmailService emailService;
+
+	@RequestMapping(value = "/schedular", method = RequestMethod.GET)
+	public String schedularPage(Model model) {
+		model.addAttribute("emails", emailService.getAll());
+		return "schedular";
+	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String userPage(ModelMap model) {

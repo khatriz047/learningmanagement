@@ -1,9 +1,14 @@
 package mum.cs544.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mum.cs544.dao.RoleDao;
 import mum.cs544.dao.UserDao;
 import mum.cs544.model.Admin;
+import mum.cs544.model.Faculty;
 import mum.cs544.model.Professor;
 import mum.cs544.model.Role;
 import mum.cs544.model.School;
@@ -82,6 +88,21 @@ public class UserServiceImpl implements UserService {
 		return userdao.findAllProfessorUsers();
 	}
 
+	private static final int PAGE_SIZE = 3;
+
+	@Override
+	public List<User> findAllStudentUsers() {
+		return userdao.findAllStudentUsers();
+	}
+
+	@Override
+	public Page<User> getProfessorUsers(Integer pageNumber) {
+		
+
+		PageRequest pageable = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "id");
+		return userdao.findAll(pageable);
+	}
+
 	@Override
 	public User addUser(User user) {
 
@@ -110,6 +131,15 @@ public class UserServiceImpl implements UserService {
 	public void updateProfilePicture(String imageUrl, long id) {
 		userdao.updateProfilePicture(imageUrl, id);
 
+	}
+
+	@Override
+	public Map<Long, String> getProfessorsMap() {
+		Map<Long, String> faculties = new LinkedHashMap<>();
+		for (User user : findAllProfessorUsers()) {
+			faculties.put(user.getId(), user.getFullName());
+		}
+		return faculties;
 	}
 
 }

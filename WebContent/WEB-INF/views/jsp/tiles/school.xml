@@ -4,11 +4,13 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="schooladmin" template="/WEB-INF/views/jsp/layouts/main.jsp">
-		<put-attribute name="title" value="School admin page" />
+		<put-attribute name="title" value="School page" />
 		<put-attribute name="header" type="template"
 			value="/WEB-INF/views/jsp/templates/header.jsp" />
 		<put-attribute name="leftmenu" type="template"
 			value="/WEB-INF/views/jsp/templates/leftmenu.jsp" />
+		<put-attribute name="navigation" type="template"
+			value="/WEB-INF/views/jsp/templates/navigation.jsp" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/container.jsp" />
 		<put-attribute name="footer" type="template"
@@ -16,23 +18,23 @@
 	</definition>
 	<!-- Faculty Page -->
 	<definition name="faculty" extends="schooladmin">
-		<put-attribute name="title" value="School faculty page" />
+		<put-attribute name="title" value="Faculty page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/school/faculty.jsp" />
 	</definition>
 
 	<!-- Course Page -->
 	<definition name="course" extends="schooladmin">
-		<put-attribute name="title" value="School course page" />
+		<put-attribute name="title" value="Course Page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/school/course.jsp" />
 	</definition>
 
 	<!-- User(professor) Page -->
 	<definition name="userprofessor" extends="schooladmin">
-		<put-attribute name="title" value="School user page" />
+		<put-attribute name="title" value="Professor Page" />
 		<put-attribute name="content" type="template"
-			value="/WEB-INF/views/jsp/templates/school/user.jsp" />
+			value="/WEB-INF/views/jsp/templates/school/professor.jsp" />
 	</definition>
 
 	<!-- <definition name="profile" extends="adminschool"> <put-attribute name="content" 

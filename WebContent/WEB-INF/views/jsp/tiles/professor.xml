@@ -9,6 +9,8 @@
 			value="/WEB-INF/views/jsp/templates/header.jsp" />
 		<put-attribute name="leftmenu" type="template"
 			value="/WEB-INF/views/jsp/templates/leftmenu.jsp" />
+		<put-attribute name="navigation" type="template"
+			value="/WEB-INF/views/jsp/templates/navigation.jsp" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/container.jsp" />
 		<put-attribute name="footer" type="template"
@@ -16,15 +18,27 @@
 	</definition>
 	<!-- Student Page -->
 	<definition name="student" extends="professoradmin">
-		<put-attribute name="title" value="Professor student page" />
+		<put-attribute name="title" value="Student page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/professor/student.jsp" />
 	</definition>
 	<!-- Resourse Page -->
 	<definition name="resourceprofessor" extends="professoradmin">
-		<put-attribute name="title" value="Professor resourse page" />
+		<put-attribute name="title" value="Resourse page" />
 		<put-attribute name="content" type="template"
 			value="/WEB-INF/views/jsp/templates/professor/resource.jsp" />
+	</definition>
+	<!-- Discussion Page -->
+	<definition name="discussion" extends="professoradmin">
+		<put-attribute name="title" value="Discussion page" />
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/professor/discussion.jsp" />
+	</definition>
+	<!-- Message Page -->
+	<definition name="message" extends="professoradmin">
+		<put-attribute name="title" value="Message page" />
+		<put-attribute name="content" type="template"
+			value="/WEB-INF/views/jsp/templates/professor/message.jsp" />
 	</definition>
 
 </tiles-definitions>

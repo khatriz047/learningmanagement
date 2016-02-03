@@ -5,6 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans 
@@ -22,13 +23,15 @@
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
 	 http://www.springframework.org/schema/data/jpa
-                           http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+                           http://www.springframework.org/schema/data/jpa/spring-jpa.xsd 
+                           http://www.springframework.org/schema/task 
+     http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
 	<mvc:annotation-driven />
 	<context:annotation-config />
 	<context:component-scan base-package="mum.cs544" />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<!-- <bean id="userService" class="mum.cs544.service.UserService" /> -->
+	<bean id="emailAspect" class="mum.cs544.aspect.EmailAspect" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
@@ -105,6 +108,11 @@
 	</bean>
 
 	<jpa:repositories base-package="mum.cs544.dao" />
+	
+	<bean name="billingService" class="mum.cs544.schedular.EmailSchedular" />
+
+	<task:annotation-driven executor="myExecutor" />
+	<task:executor id="myExecutor" pool-size="5" />
 
 	<import resource="springsecurity.xml" />
 
