@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "question")
@@ -18,12 +19,10 @@ public class Question {
 	private long id;
 	private String title;
 	private String name;
-
-
 	private Date postDate;
-	@OneToMany
-	private Set<Answer> answer = new HashSet<>();
 
+	@ManyToOne
+	private User user;
 	public Question() {
 
 	}
@@ -60,12 +59,5 @@ public class Question {
 		this.postDate = postDate;
 	}
 
-	public Set<Answer> getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(Set<Answer> answer) {
-		this.answer = answer;
-	}
 
 }

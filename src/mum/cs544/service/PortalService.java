@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import mum.cs544.model.Answer;
 import mum.cs544.model.Question;
 
 @Service("protalService")
@@ -13,4 +14,6 @@ import mum.cs544.model.Question;
 public interface PortalService {
 	public Question postQuestion(Question question);
 	public List<Question> getAllQuestion();
+	public Question getQuestion(int id);
+	public Answer postAnswer(Answer answer);
 }

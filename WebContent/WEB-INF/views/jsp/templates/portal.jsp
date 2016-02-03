@@ -33,9 +33,16 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">Question</label>
 										<div class="col-md-10">
-											<form:textarea path="title" class="form-control" />
+											<form:textarea path="name" class="form-control" />
 
 										</div>
+
+										<form:select path="title">
+										  <form:option value="general">General</form:option>
+										  <form:option value="assignment">Assignment</form:option>
+										  <form:option value="lecture">Lecture</form:option>
+										  <form:option value="All">All</form:option>
+										</form:select>
 									</div>
 									<div class="form-group">
 										<form:button class="btn btn-primary btn-sm">Post Question</form:button>
@@ -66,15 +73,16 @@
 								<table class="table table-striped eaTable">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Title</th>
+											<th>Category</th>
+											<th>Question</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="r" items="${list}">
 											<tr>
 											<td>${r.name}</td>
-												<td>${r.title}</td>
+											<td>${r.title}</td>
+											<td><a href="/portal/answer/{id}">Answer</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

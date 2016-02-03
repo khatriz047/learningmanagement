@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import mum.cs544.dao.AnswerDao;
 import mum.cs544.dao.PortalDao;
+import mum.cs544.model.Answer;
 import mum.cs544.model.Question;
 
 @Service("portalService")
@@ -17,6 +19,9 @@ public class PortalServiceImpl implements PortalService {
 
 	@Resource
 	private PortalDao portalDao;
+
+	@Resource
+	private AnswerDao answerDao;
 
 	@Override
 	public Question postQuestion(Question question) {
@@ -27,5 +32,16 @@ public class PortalServiceImpl implements PortalService {
 	public List<Question> getAllQuestion() {
 		return portalDao.findAll();
 	}
+
+	@Override
+	public Answer postAnswer(Answer answer) {
+		return answerDao.save(answer);
+	}
+
+	@Override
+	public Question getQuestion(int id) {
+		return portalDao.findById(id);
+	}
+
 
 }
