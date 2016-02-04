@@ -19,7 +19,7 @@ import mum.cs544.service.FacultyService;
 import mum.cs544.service.UserService;
 
 @Controller
-@SessionAttributes({ "username", "navfaculties" })
+@SessionAttributes("username")
 public class LoginLogoutController {
 
 	@Autowired
@@ -49,7 +49,6 @@ public class LoginLogoutController {
 
 		String username = getPrincipal();
 		model.addAttribute("username", username);
-		model.addAttribute("navfaculties", facultyService.getFacultiesMap());
 
 		return "professoradmin";
 	}

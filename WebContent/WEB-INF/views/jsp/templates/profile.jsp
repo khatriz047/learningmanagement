@@ -59,7 +59,7 @@
 						<td class="col-md-2 control-label">Contact Number</td>
 						<td><span class="label label-default">${user.contactNumber}</span></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td class="col-md-2 control-label">Home Country</td>
 						<td>
 							<div class="bfh-selectbox bfh-countries"
@@ -80,7 +80,7 @@
 								</div>
 							</div>
 						</td>
-					</tr>
+					</tr> --%>
 
 					<tr>
 						<td class="col-md-2 control-label">Country</td>

@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 public class EmailSchedular {
 
-	@Scheduled(cron = "0/7 * * * * *")
+	@Scheduled(cron = "0 0 0/1 * * *")
 	public void sendQueuedEmails() {
 		Date date = Calendar.getInstance().getTime();
 		DateFormat timeFormatter = DateFormat.getTimeInstance(DateFormat.DEFAULT);

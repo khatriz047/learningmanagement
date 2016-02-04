@@ -26,18 +26,23 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import mum.cs544.model.Answer;
 import mum.cs544.model.Course;
+import mum.cs544.model.Question;
 import mum.cs544.model.Resource;
 import mum.cs544.model.Student;
+import mum.cs544.model.User;
+import mum.cs544.service.AnswerService;
 import mum.cs544.service.CourseService;
 import mum.cs544.service.FacultyService;
+import mum.cs544.service.QuestionService;
 import mum.cs544.service.ResourceService;
 import mum.cs544.service.UserService;
 import mum.cs544.utils.FileMeta;
 
 @Controller
 @RequestMapping(value = "/professor")
-@SessionAttributes("navfaculties")
+@SessionAttributes("facultiesmap")
 public class ProfessorController {
 
 	@Autowired
@@ -53,11 +58,68 @@ public class ProfessorController {
 	private ResourceService resourceService;
 
 	@Autowired
+	private QuestionService questionService;
+
+	@Autowired
+	private AnswerService answerService;
+
+	@Autowired
 	ServletContext context;
 
 	@RequestMapping(value = "/discussion", method = RequestMethod.GET)
-	public String discussionPage(ModelMap model) {
+	public String questionPage(ModelMap model) {
+		model.addAttribute("questions", questionService.getAllQuestion());
+		model.addAttribute("question", new Question());
+		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
 		return "discussion";
+	}
+	
+	@RequestMapping(value = "/discussion/course/{id}", method = RequestMethod.GET)
+	public String questionPageWrtCourse(@PathVariable long id,ModelMap model) {
+		model.addAttribute("questions", questionService.findByCourse(id));
+		model.addAttribute("question", new Question());
+		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
+		return "discussion";
+	}
+
+	@RequestMapping(value = "/discussion/question", method = RequestMethod.POST)
+	public String addQuestion(Question question, HttpSession session) {
+
+		User user = userService.findByUsername((String) session.getAttribute("username"));
+		question.setUser(user);
+		question.setPostDate(new Date());
+		questionService.addQuestion(question);
+
+		return "redirect:/professor/discussion";
+	}
+
+	@RequestMapping(value = "/discussion/answer/{id}", method = RequestMethod.GET)
+	public String getAnswerPage(@PathVariable long id, Model model) {
+		Answer answer = new Answer();
+		model.addAttribute("answer", answer);
+		return "answer";
+	}
+
+	@RequestMapping(value = "/discussion/answer/{id}", method = RequestMethod.POST)
+	public String addAnswer(@PathVariable long id, Answer answer, HttpSession session) {
+		Question question = questionService.getQuestionById(id);
+		System.out.println(question.getId());
+		User user = userService.findByUsername((String) session.getAttribute("username"));
+		answer.setUser(user);
+		answer.setAnswerDate(new Date());
+		answer.setQuestion(question);
+		
+		
+		question.addAnswer(answer);
+		
+		answerService.addAnswer(answer);
+		return "redirect:/professor/discussion";
+	}
+
+	@RequestMapping(value = "/discussion/question/delete", method = RequestMethod.POST)
+	public String deleteQuestion(@RequestParam("id") long id) {
+		questionService.delete(id);
+		return "redirect:/professor/discussion";
 	}
 
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
@@ -98,6 +160,11 @@ public class ProfessorController {
 	@RequestMapping(value = "/course/jsoncourselist/{id}", method = RequestMethod.GET)
 	public @ResponseBody List<Course> getCourseList(@PathVariable long id) {
 		return courseService.getCourses(id);
+	}
+	
+	@RequestMapping(value = "/question/jsonquestionwrtcourse/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Question> getQuestionsWrtCourse(@PathVariable long id) {
+		return questionService.findByCourse(id);
 	}
 
 	@RequestMapping(value = "/resource", method = RequestMethod.GET)

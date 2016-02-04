@@ -288,4 +288,8 @@ public class User {
 		return prefix + " " + firstname + " " + lastname;
 	}
 
+	public String getName() {
+		return firstname + " " + lastname;
+	}
+
 }

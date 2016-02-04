@@ -12,12 +12,13 @@ public interface CourseService {
 	List<Course> getCourses();
 
 	void delete(long id);
-	
+
 	public List<Course> getCourses(long facultyId);
-	
+
 	Course findById(long id);
-	
+
 	List<Course> findByIdIn(List<Long> ids);
-	
+
+	List<Course> findAllCoursesByStudent(String username);
 
 }

@@ -1,5 +1,6 @@
 package mum.cs544.service;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mum.cs544.dao.CourseDao;
 import mum.cs544.dao.FacultyDao;
+import mum.cs544.dao.StudentDao;
 import mum.cs544.model.Course;
 import mum.cs544.model.Faculty;
+import mum.cs544.model.Student;
 
 @Service("courseService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -24,6 +27,9 @@ public class CourseServiceImpl implements CourseService {
 
 	@Resource
 	private FacultyDao facultyDao;
+
+	@Resource
+	private StudentDao studentDao;
 
 	@Override
 	public Course addCourse(Course course) {
@@ -55,6 +61,17 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> findByIdIn(List<Long> ids) {
 		return courseDao.findByIdIn(ids);
+	}
+
+	@Override
+	public List<Course> findAllCoursesByStudent(String username) {
+
+		Student student = studentDao.findByUsername(username);
+		List<Course> courses = new ArrayList<>();
+		for (Course course : student.getCourses()) {
+			courses.add(course);
+		}
+		return courses;
 	}
 
 }
