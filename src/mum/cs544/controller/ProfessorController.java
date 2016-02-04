@@ -73,9 +73,9 @@ public class ProfessorController {
 		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
 		return "discussion";
 	}
-	
+
 	@RequestMapping(value = "/discussion/course/{id}", method = RequestMethod.GET)
-	public String questionPageWrtCourse(@PathVariable long id,ModelMap model) {
+	public String questionPageWrtCourse(@PathVariable long id, ModelMap model) {
 		model.addAttribute("questions", questionService.findByCourse(id));
 		model.addAttribute("question", new Question());
 		model.addAttribute("facultiesmap", facultyService.getFacultiesMap());
@@ -93,27 +93,35 @@ public class ProfessorController {
 		return "redirect:/professor/discussion";
 	}
 
-	@RequestMapping(value = "/discussion/answer/{id}", method = RequestMethod.GET)
-	public String getAnswerPage(@PathVariable long id, Model model) {
-		Answer answer = new Answer();
-		model.addAttribute("answer", answer);
+	/*
+	 * @RequestMapping(value = "/discussion/answer/{id}", method =
+	 * RequestMethod.GET) public String getAnswerPage(@PathVariable long id,
+	 * Model model) { Answer answer = new Answer(); model.addAttribute("answer",
+	 * answer); return "answer"; }
+	 */
+	@RequestMapping(value = "/discussion/answer", method = RequestMethod.GET)
+	public String getAnswerPage(@RequestParam("q") Long id, Model model) {
+		model.addAttribute("answer", new Answer());
 		return "answer";
 	}
 
-	@RequestMapping(value = "/discussion/answer/{id}", method = RequestMethod.POST)
-	public String addAnswer(@PathVariable long id, Answer answer, HttpSession session) {
-		Question question = questionService.getQuestionById(id);
-		System.out.println(question.getId());
+	@RequestMapping(value = "/discussion/answer", method = RequestMethod.POST)
+	public String adding(@RequestParam("q") long id, Answer answer, HttpSession session) {
 		User user = userService.findByUsername((String) session.getAttribute("username"));
-		answer.setUser(user);
 		answer.setAnswerDate(new Date());
-		answer.setQuestion(question);
-		
-		
-		question.addAnswer(answer);
-		
-		answerService.addAnswer(answer);
+		Question question = questionService.getQuestionById(id);
+
+		Answer result = answerService.addAnswer(answer);
+
+		updateAnswerResult(user.getId(), question.getId(), result.getId());
+
 		return "redirect:/professor/discussion";
+	}
+
+	public void updateAnswerResult(long user_id, long question_id, long id) {
+
+		answerService.updateAnswerResult(user_id, question_id, id);
+
 	}
 
 	@RequestMapping(value = "/discussion/question/delete", method = RequestMethod.POST)
@@ -161,7 +169,7 @@ public class ProfessorController {
 	public @ResponseBody List<Course> getCourseList(@PathVariable long id) {
 		return courseService.getCourses(id);
 	}
-	
+
 	@RequestMapping(value = "/question/jsonquestionwrtcourse/{id}", method = RequestMethod.GET)
 	public @ResponseBody List<Question> getQuestionsWrtCourse(@PathVariable long id) {
 		return questionService.findByCourse(id);

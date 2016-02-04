@@ -90,6 +90,12 @@ function sendFileToServer(formData, status, obj) {
 				$('#resourcesize').val(result.fileSize);
 				$('#resourcetype').val(result.fileType);
 			}
+			
+			if (obj.attr('id') == 'studentResourceDragDrop') {
+				$('#resourceurl').val(result.fileName);
+				$('#resourcesize').val(result.fileSize);
+				$('#resourcetype').val(result.fileType);
+			}
 		}
 	});
 

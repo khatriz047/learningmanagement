@@ -5,9 +5,12 @@
 
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="#resourcelist" role="tab"
-			data-toggle="tab"> <icon class="glyphicon glyphicon-th-list"></icon>
-				Resource List
+		<li class="active"><a href="#chooseCourse" role="tab"
+			data-toggle="tab"> <icon class="glyphicon glyphicon-th"></icon>
+				Choose Course
+		</a></li>
+		<li><a href="#resourcelist" role="tab" data-toggle="tab"> <icon
+					class="glyphicon glyphicon-th-list"></icon> Resource List
 		</a></li>
 		<li><a href="#addresource" role="tab" data-toggle="tab"> <icon
 					class="glyphicon glyphicon-plus"></icon> Add Resource
@@ -17,7 +20,40 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane fade active in" id="resourcelist">
+		<div class="tab-pane fade active in" id="chooseCourse">
+			<div class="panel panel-default">
+				<div class="formcontainer">
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-md-12 col-sm-6 col-xs-12">
+
+							<div class="panel-body">
+								<div class="form-group">
+									<label class="col-md-2 control-label">Choose your
+										course</label>
+									<div class="col-md-10">
+										<select id="selectCourse" class="form-control">
+											<option value=""></option>
+											<c:forEach var="c" items="${courses}">
+												<option value="${c.getKey()}">${c.getValue()}</option>
+
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!-- Tab panes -->
+		<div class="tab-pane fade" id="resourcelist">
 			<div class="panel panel-default">
 				<div class="formcontainer">
 					<!-- Row start -->
@@ -74,24 +110,16 @@
 
 							<div class="panel-body">
 
-								<form:form class="form-horizontal row-border" action="resource"
+								<form:form class="form-horizontal row-border" action=""
 									method="post" modelAttribute="resource">
 
-									<div class="form-group">
-										<label class="col-md-2 control-label">Faculty</label>
-										<div class="col-md-10">
-											<form:select id="facultyId" path="" class="form-control"
-												style="width: 80px; float: left;margin-right: 10px;">
-												<form:options items="${facultiesmap}" />
-
-											</form:select>
-										</div>
-									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">Courses</label>
 										<div class="col-md-10">
 											<form:select id="coursesId" path="course.id"
-												class="form-control">
+												class="form-control"
+												style="width: 250px; float: left;margin-right: 10px;">
+												<form:options items="${courses}" />
 
 											</form:select>
 										</div>
@@ -105,13 +133,13 @@
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">Upload Resource</label>
-										<div id="professorResourceDragDrop" class="dragDropHandler">Drag
+										<div id="studentResourceDragDrop" class="dragDropHandler">Drag
 											& Drop!</div>
-										<form:hidden path="resourceurl" class="form-control"
+										<form:input path="resourceurl" class="form-control"
 											value="${course.resourceurl}" />
-										<form:hidden path="resourcetype" class="form-control"
+										<form:input path="resourcetype" class="form-control"
 											value="${course.resourceurl}" />
-										<form:hidden path="resourcesize" class="form-control"
+										<form:input path="resourcesize" class="form-control"
 											value="${course.resourceurl}" />
 										<div id="resourceStatus"></div>
 									</div>
@@ -138,43 +166,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		loadCourses();
-		var photo = $("#professorResourceDragDrop");
+		var photo = $("#studentResourceDragDrop");
 		initializeDragDrop(photo);
 	});
 
-	$("#facultyId").change(function(e) {
+	$("#selectCourse")
+			.change(
+					function(e) {
+						window.location.href = "${pageContext.request.contextPath}/student/resource/"
+								+ $("#selectCourse").val();
 
-		loadCourses();
-
-	});
-
-	function loadCourses() {
-		$.getJSON("course/jsoncourselist/" + $("#facultyId").val(), function(
-				response) {
-			$("#coursesId option").remove();
-			var options = '';
-			$.each(response, function(index, course) {
-				options += '<option value="' + course.id + '">' + course.name
-						+ '</option>';
-				$("#coursesId").html(options);
-			});
-		});
-	}
-	
-	function doDeleteResource(id) {
-		$.ajax({
-			type : 'POST',
-			url : 'resource/delete',
-			data : 'id=' + id,
-			success : function(message) {
-				window.location.href = "resource";
-				//$('#roleDeleteMsg').html("Deleted!");
-			},
-			error : function(e) {
-				//$('#roleDeleteMsg').html("Failed!");
-			}
-		});
-	}
+					});
 </script>
 <script src="<c:url value='/resources/js/myuploadfunction.js' />"></script>

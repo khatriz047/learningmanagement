@@ -21,10 +21,10 @@
 
 							<div class="panel-body">
 
-								<form:form class="form-horizontal row-border"
-									action="" method="post"
-									modelAttribute="answer">
+								<form:form class="form-horizontal row-border" action=""
+									method="post" modelAttribute="answer">
 									
+									<%-- <form:input path="id"/> --%>
 
 									<div class="form-group">
 										<label class="col-md-2 control-label">Answer</label>

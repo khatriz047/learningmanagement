@@ -15,5 +15,7 @@ public interface QuestionService {
 	void delete(long id);
 	
 	public List<Question> findByCourse(long id);
+	
+	List<String> getEmailIDsFromCourses(long id);
 
 }

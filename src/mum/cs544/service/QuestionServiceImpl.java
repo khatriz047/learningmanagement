@@ -50,4 +50,9 @@ public class QuestionServiceImpl implements QuestionService {
 		return questionDao.findByCourse(course);
 	}
 
+	@Override
+	public List<String> getEmailIDsFromCourses(long id) {
+		return questionDao.getEmailIDsFromCourses(id);
+	}
+
 }

@@ -42,4 +42,9 @@ public class ResourceServiceImpl implements ResourceService {
 		return resourceDao.findByCourse(course);
 	}
 
+	@Override
+	public List<String> getEmailIDsFromCourses(long id) {
+		return resourceDao.getEmailIDsFromCourses(id);
+	}
+
 }

@@ -45,7 +45,7 @@
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/admin/schedular"><span
 						class="fa-stack fa-lg pull-left"><i
-							class="glyphicon glyphicon-repeat fa-stack-1x "></i></span>Schedular</a></li>
+							class="glyphicon glyphicon-repeat fa-stack-1x "></i></span>Scheduler</a></li>
 			</security:authorize>
 
 			<security:authorize access="hasRole('STUDENT')">
@@ -68,18 +68,18 @@
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/school/faculty"> <span
 						class="fa-stack fa-lg pull-left"><i
-							class="fa fa-cart-plus fa-stack-1x "></i></span>Faculty
+							class="glyphicon glyphicon-briefcase fa-stack-1x "></i></span>Faculty
 				</a></li>
 
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/school/course"><span
 						class="fa-stack fa-lg pull-left"><i
-							class="fa fa-wrench fa-stack-1x "></i></span>Courses</a></li>
+							class="glyphicon glyphicon-book fa-stack-1x "></i></span>Courses</a></li>
 
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/school/professor"><span
 						class="fa-stack fa-lg pull-left"><i
-							class="fa fa-wrench fa-stack-1x "></i></span>Professors</a></li>
+							class="glyphicon glyphicon-user fa-stack-1x "></i></span>Professors</a></li>
 			</security:authorize>
 
 			<security:authorize access="hasRole('PROFESSOR')">

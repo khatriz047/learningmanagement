@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mum.cs544.dao.AnswerDao;
 import mum.cs544.model.Answer;
+import mum.cs544.model.Question;
+import mum.cs544.model.User;
 
 @Service("answerService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -38,5 +40,22 @@ public class AnswerServiceImpl implements AnswerService {
 		answerDao.delete(id);
 
 	}
+
+	@Override
+	public void updateAnswerResult(long user_id, long question_id, long id) {
+		answerDao.updateAnswerResult(user_id, question_id, id);
+	}
+
+	@Override
+	public List<String> getEmailIDsFromCourses(long id) {
+		return answerDao.getEmailIDsFromCourses(id);
+	}
+
+
+	/*@Override
+	public void updateAnswerResult(User user, Question question, long id) {
+		answerDao.updateAnswerResult(user, question, id);
+		
+	}*/
 
 }

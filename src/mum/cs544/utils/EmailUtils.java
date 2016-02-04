@@ -47,8 +47,7 @@ public class EmailUtils {
 
 	}
 
-	public static boolean sendEmailNotification(List<String> emailRecipients, String subject, StringBuffer body)
-			throws Exception {
+	public static boolean sendEmailNotification(QueuedEmail queuedEmail) throws Exception {
 
 		try {
 			SimpleEmail email = new SimpleEmail();
@@ -58,14 +57,11 @@ public class EmailUtils {
 			email.setAuthenticator(new DefaultAuthenticator("thesujan540@gmail.com", "sujanfaith"));
 			email.setTLS(true);
 
-			for (String emailRecipient : emailRecipients) {
-				email.addTo(emailRecipient);
-			}
+			email.addTo(queuedEmail.getEmailto());
 
-			email.setSubject(subject);
+			email.setSubject(queuedEmail.getSubject());
 
-			email.setMsg("\nPlease save your submission code:" + body.toString()
-					+ "\n\nThank you!\n Software Development House Nepal");
+			email.setMsg(queuedEmail.getMessage());
 
 			email.send();
 

@@ -2,27 +2,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%-- <c:if test="${requestScope.id}"> --%>
-	<form:form class="form-horizontal row-border" id="discussionForm"
-		modelAttribute="question">
-		<div class="form-group">
-			<label class="col-md-2 control-label">Faculty</label>
-			<div class="col-md-10">
-				<form:select id="discussionFaculty" path="" class="form-control"
-					style="width: 80px; float: left;margin-right: 10px;">
-					<form:option value="0" selected="true">All</form:option>
-					<form:options items="${facultiesmap}" />
-
-				</form:select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">Courses</label>
-			<div class="col-md-10">
-				<form:select id="discussionCourse" path="" class="form-control">
-				</form:select>
-			</div>
-		</div>
-	</form:form>
 <%-- </c:if> --%>
 <div id="discussionFourm">
 	<c:forEach var="q" items="${questions}">
@@ -47,12 +26,8 @@
 				</ul>
 
 			</div>
-			<input type="submit"
-				onclick="javascript:doDeleteQuestion(${q.id});return
-		false;"
-				value="Delete" class="btn btn-danger answer"> <a
-				class="btn btn-success answer"
-				href="${pageContext.request.contextPath}/professor/discussion/answer?q=${q.id}"
+			<a class="btn btn-success answer"
+				href="${pageContext.request.contextPath}/student/discussion/answer?q=${q.id}"
 				style="margin-right: 10px;">Answer</a>
 
 		</fieldset>

@@ -2,7 +2,10 @@ package mum.cs544.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -19,7 +25,7 @@ public class Question {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(length = 1024)
 	private String questionbody;
 	private String questiontype;
@@ -32,17 +38,17 @@ public class Question {
 	private Course course;
 
 	@OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Answer> answers = new ArrayList<>();
+	private Set<Answer> answers = new HashSet<>();
 
 	public Question() {
 
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -86,16 +92,59 @@ public class Question {
 		this.course = course;
 	}
 
-	public List<Answer> getAnswers() {
+	public void addAnswer(Answer answer) {
+		this.answers.add(answer);
+	}
+
+	public Set<Answer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
 	}
 
-	public void addAnswer(Answer answer) {
-		this.answers.add(answer);
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((postDate == null) ? 0 : postDate.hashCode());
+		result = prime * result + ((questionbody == null) ? 0 : questionbody.hashCode());
+		result = prime * result + ((questiontype == null) ? 0 : questiontype.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (postDate == null) {
+			if (other.postDate != null)
+				return false;
+		} else if (!postDate.equals(other.postDate))
+			return false;
+		if (questionbody == null) {
+			if (other.questionbody != null)
+				return false;
+		} else if (!questionbody.equals(other.questionbody))
+			return false;
+		if (questiontype == null) {
+			if (other.questiontype != null)
+				return false;
+		} else if (!questiontype.equals(other.questiontype))
+			return false;
+		return true;
 	}
 
 }

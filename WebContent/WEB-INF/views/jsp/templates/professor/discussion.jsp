@@ -50,7 +50,7 @@
 										<label class="col-md-2 control-label">Faculty</label>
 										<div class="col-md-10">
 											<form:select id="facultyId" path="" class="form-control"
-												style="width: 80px; float: left;margin-right: 10px;">
+												style="width: 250px; float: left;margin-right: 10px;">
 												<form:options items="${facultiesmap}" />
 
 											</form:select>

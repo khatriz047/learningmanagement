@@ -107,7 +107,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
-	<jpa:repositories base-package="mum.cs544.dao" />
+	<jpa:repositories base-package="mum.cs544" />
 	
 	<bean name="billingService" class="mum.cs544.schedular.EmailSchedular" />
 
